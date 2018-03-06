@@ -38,16 +38,13 @@
         var carClick
         var gifs = []
         var pics = []
-        var gifDiv
         var gifIndex
-        var gifClass = "gifStill"
-        var oldGif
         var newGif
-        // = "http://api.giphy.com/v1/gifs/search?q=" + topics[0] + burnout + "&api_key=oJxy9LUc6rHE00XPULNNkjFxbohHISwL&limit=5"
 
         $(document).ready(function(){
             loadBtns()
-
+            
+            // This loads the buttons to the page based on the values in array topics
             function loadBtns() {
                 $("#buttonDiv").empty();
                 for (i=0; i<topics.length; i++){
@@ -70,30 +67,11 @@
                         gifs.length = 0;
                         console.log(response);
                         postGifs(response)
-                        // gifs.push(response.data[i].images.fixed_height_small.url);
-                        // }
-
-                        // for (i=0; i < 10; i++){
-                        //     pics.push(response.data[i].images.fixed_height_small_still.url);
-                        //     gifs.push(response.data[i].images.fixed_height_small.url);
-                        //     var gifImg = `<img class="gifStill" value="${pics[i]} "src="${pics[i]}">`;
-                        //     console.log(pics[i]);
-                        //     $("#gifImages").append(gifImg);
-        
-                            // $(".gifStill").on("click", function(){
-                            //     gifIndex = pics.indexOf($(this).val())
-                            //     console.log(this)
-                            //     pics[gifIndex] = gifs[gifIndex]
-                            // })
-                        // }
                     })
                 })
             }   
-            // $(".gifStill").on("click", function(){
-            //     gifIndex = "3"
-            //     console.log(this)
-            //     pics[gifIndex] = gifs[gifIndex] 
-            // })    
+            
+            // Posts the .gifs to the getImages div
             function postGifs(response){ 
                 for (i=0; i < 10; i++){
                     pics.push(response.data[i].images.fixed_height_small_still.url);
@@ -103,40 +81,9 @@
                     $("#gifImages").append(gifImg);
                 }
                 ClickStill()
-                // ClickVid()            
-                // $(".gifStill").on("click", function(){
-                //     gifIndex = pics.indexOf($(this)['0'].currentSrc)
-                //     console.log($(this)['0'].currentSrc)
-                //     console.log("break")
-                //     newGif = `<img class="gifVid" id=${gifIndex + 1} value="${gifs[gifIndex]} "src="${gifs[gifIndex]}">`;        
-                //     $("#" + [gifIndex + 1]).replaceWith(newGif)
-                    
-                //         $(".gifVid").on("click", function(){
-                //             gifIndex = gifs.indexOf($(this)['0'].currentSrc)
-                //             console.log($(this)['0'].currentSrc)
-                //             console.log("break")
-                //             newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
-                //             $("#" + [gifIndex + 1]).replaceWith(newGif)
-                // })
-                
-                // })
-
-                // $(".gifVid").on("click", function(){
-                //     // gifIndex = gifs.indexOf($(this)['0'].currentSrc)
-                //     // console.log($(this)['0'].currentSrc)
-                //     console.log("break")
-                //     // newGif = `<img class="gifStill" id=${picIndex + 1} value="${pics[gifIndex+1]} "src="${pics[gifIndex]}">`;        
-                //     // $("#" + [gifIndex + 1]).replaceWith(newGif)
-                // })
-
-                // $(".gifStill").on("click", function(){
-                // gifIndex = pics.indexOf($(this)['0'].currentSrc)
-                // console.log($(this)['0'].currentSrc)
-                // pics[gifIndex] = gifs[gifIndex]
-                // $("#gifImages").empty();
-                // postGifs(response)
-                // })
             }        
+            
+            // Click handler for changing the gifs from stills to actions by pushing new html from either the gifs or pics array, each of which house information on the corresponding gifs
             function ClickStill(){
                 $(".gifStill").on("click", function(){
                     gifIndex = pics.indexOf($(this)['0'].currentSrc)
@@ -154,57 +101,15 @@
                         ClickStill()
                     })
                 })        
-            }       
-            // function ClickVid(){    
-                // $(".gifVid").on("click", function(){
-                //         gifIndex = gifs.indexOf($(this)['0'].currentSrc)
-                //         console.log($(this)['0'].currentSrc)
-                //         console.log("break2")
-                //         newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
-                //         $("#" + [gifIndex + 1]).replaceWith(newGif)
-                // })
-            // }    
-
-            // $(".gifStill").on("click", function(){
-            //     gifIndex = pics.indexOf($(this)['0'].currentSrc)
-            //     console.log($(this)['0'].currentSrc)
-            //     console.log("break")
-            //     newGif = `<img class="gifVid" id=${gifIndex + 1} value="${gifs[gifIndex+1]} "src="${gifs[gifIndex]}">`;        
-            //     $("#" + [gifIndex + 1]).replaceWith(newGif)
-            // })
-
+            }        
+            
+            // Submits the value from the input #newCar and passes it to the newCar variable, which is then pushed to the topics array
             $("#submitBtn").on("click", function(){
                 newCar = $("#newCar").val();
                 topics.push(newCar);
                 loadBtns()
             })
-
-            // $(".gifStill").on("click", function(){
-            //     gifIndex = pics.indexOf($(this).val())
-            //     console.log("True")
-            //     pics[gifIndex] = gifs[gifIndex]
-            // })
         })    
     </script>
 </body>
 </html>
-
-<!-- // for (a=0; a < gifs.length; a++){
-    //     var gifImg = `<img class="imgClass" src="${pics[a]}">`;
-    //     $("#gifImages").append(gifImg);
-    // }
-
-    // $(".imgClass").on("click", function(){
-    //     var gifImg = `<img class="imgClass" src="${pics[i]}">`;
-    // })
-    // for (i=0; i < gifs.length; i++){
-    //     var gifImg = `<img class="imgClass" src="${gifs[i]}">`;
-    //     $("#gifImages").append(gifImg);
-    // } -->
-
-
-<!-- // function pushGifs(response) {
-    //     for (i=0; i < 5; i++){
-    //     gifs.push(response.data[i].embed_url);
-    //     }
-    // }    -->
