@@ -1,0 +1,26 @@
+.col-12-md{
+    border: 1px solid blue;
+    padding: 2%;
+}
+
+.btn{
+    border: 1px solid red;
+    margin-left: 1%;
+}
+
+div[class*="col"]{
+    border: 1px solid green;
+    padding: 2%;
+}
+
+.col-4-md {
+    width: 600px;
+}
+.col-2-md {
+    width: 400px;
+}
+
+img{
+    width: 150px;
+    height: 100px;
+}

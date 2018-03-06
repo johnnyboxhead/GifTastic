@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width==device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script   src="https://code.jquery.com/jquery-3.3.1.js"   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Over the Hill Burnout</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12-md" id="buttonDiv" >
+                <!-- <button type="button" class="btn" id="testBtn" value="mustang">Test1</button> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4-md" id="gifImages">
+
+            </div>
+            <div class="col-2-md" id="searchDiv">
+                    <p>Search for a new vehicle doing a burnout: </p>
+                    <input type="text" id="newCar"><br>
+                    <input type="submit" id="submitBtn">
+                </form>
+            </div>
+        </div>
+    </div>       
+    
+    <!-- <script src="assets/javascript/app.js"></script> -->
+    <script>
+        var topics = ["mustang", "camaro", "minivan"]
+        var burnout = " burnout"
+        var gifURL 
+        var newCar
+        var carClick
+        var gifs = []
+        var pics = []
+        var gifDiv
+        var gifIndex
+        var gifClass = "gifStill"
+        var oldGif
+        var newGif
+        // = "http://api.giphy.com/v1/gifs/search?q=" + topics[0] + burnout + "&api_key=oJxy9LUc6rHE00XPULNNkjFxbohHISwL&limit=5"
+
+        $(document).ready(function(){
+            loadBtns()
+
+            function loadBtns() {
+                $("#buttonDiv").empty();
+                for (i=0; i<topics.length; i++){
+                    var button = `
+                    <button type="button" class="btn pull-left" id="${topics[i]}" value="${topics[i]}">${topics[i]}</button>
+                    `;
+                    $("#buttonDiv").append(button);
+                }    
+            
+                $(".btn").on("click", function(){
+                    carClick = $(this).val()
+                    console.log(this)
+                    gifURL = "http://api.giphy.com/v1/gifs/search?q=" + carClick + burnout + "&api_key=oJxy9LUc6rHE00XPULNNkjFxbohHISwL&limit=10"
+                    $.ajax({
+                        url: gifURL,
+                        method: "Get",
+                    }).then(function(response){
+                        $("#gifImages").empty();
+                        pics.length = 0;
+                        gifs.length = 0;
+                        console.log(response);
+                        postGifs(response)
+                        // gifs.push(response.data[i].images.fixed_height_small.url);
+                        // }
+
+                        // for (i=0; i < 10; i++){
+                        //     pics.push(response.data[i].images.fixed_height_small_still.url);
+                        //     gifs.push(response.data[i].images.fixed_height_small.url);
+                        //     var gifImg = `<img class="gifStill" value="${pics[i]} "src="${pics[i]}">`;
+                        //     console.log(pics[i]);
+                        //     $("#gifImages").append(gifImg);
+        
+                            // $(".gifStill").on("click", function(){
+                            //     gifIndex = pics.indexOf($(this).val())
+                            //     console.log(this)
+                            //     pics[gifIndex] = gifs[gifIndex]
+                            // })
+                        // }
+                    })
+                })
+            }   
+            // $(".gifStill").on("click", function(){
+            //     gifIndex = "3"
+            //     console.log(this)
+            //     pics[gifIndex] = gifs[gifIndex] 
+            // })    
+            function postGifs(response){ 
+                for (i=0; i < 10; i++){
+                    pics.push(response.data[i].images.fixed_height_small_still.url);
+                    gifs.push(response.data[i].images.fixed_height_small.url);
+                    var gifImg = `<img class="gifStill" id=${i+1} value="${pics[i]} "src="${pics[i]}">`;
+                    console.log(pics[i]);
+                    $("#gifImages").append(gifImg);
+                }
+                ClickStill()
+                // ClickVid()            
+                // $(".gifStill").on("click", function(){
+                //     gifIndex = pics.indexOf($(this)['0'].currentSrc)
+                //     console.log($(this)['0'].currentSrc)
+                //     console.log("break")
+                //     newGif = `<img class="gifVid" id=${gifIndex + 1} value="${gifs[gifIndex]} "src="${gifs[gifIndex]}">`;        
+                //     $("#" + [gifIndex + 1]).replaceWith(newGif)
+                    
+                //         $(".gifVid").on("click", function(){
+                //             gifIndex = gifs.indexOf($(this)['0'].currentSrc)
+                //             console.log($(this)['0'].currentSrc)
+                //             console.log("break")
+                //             newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
+                //             $("#" + [gifIndex + 1]).replaceWith(newGif)
+                // })
+                
+                // })
+
+                // $(".gifVid").on("click", function(){
+                //     // gifIndex = gifs.indexOf($(this)['0'].currentSrc)
+                //     // console.log($(this)['0'].currentSrc)
+                //     console.log("break")
+                //     // newGif = `<img class="gifStill" id=${picIndex + 1} value="${pics[gifIndex+1]} "src="${pics[gifIndex]}">`;        
+                //     // $("#" + [gifIndex + 1]).replaceWith(newGif)
+                // })
+
+                // $(".gifStill").on("click", function(){
+                // gifIndex = pics.indexOf($(this)['0'].currentSrc)
+                // console.log($(this)['0'].currentSrc)
+                // pics[gifIndex] = gifs[gifIndex]
+                // $("#gifImages").empty();
+                // postGifs(response)
+                // })
+            }        
+            function ClickStill(){
+                $(".gifStill").on("click", function(){
+                    gifIndex = pics.indexOf($(this)['0'].currentSrc)
+                    console.log($(this)['0'].currentSrc)
+                    console.log("break1")
+                    newGif = `<img class="gifVid" id=${gifIndex + 1} value="${gifs[gifIndex]} "src="${gifs[gifIndex]}">`;        
+                    $("#" + [gifIndex + 1]).replaceWith(newGif)
+
+                    $(".gifVid").on("click", function(){
+                        gifIndex = gifs.indexOf($(this)['0'].currentSrc)
+                        console.log($(this)['0'].currentSrc)
+                        console.log("break2")
+                        newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
+                        $("#" + [gifIndex + 1]).replaceWith(newGif)
+                        ClickStill()
+                    })
+                })        
+            }       
+            // function ClickVid(){    
+                // $(".gifVid").on("click", function(){
+                //         gifIndex = gifs.indexOf($(this)['0'].currentSrc)
+                //         console.log($(this)['0'].currentSrc)
+                //         console.log("break2")
+                //         newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
+                //         $("#" + [gifIndex + 1]).replaceWith(newGif)
+                // })
+            // }    
+
+            // $(".gifStill").on("click", function(){
+            //     gifIndex = pics.indexOf($(this)['0'].currentSrc)
+            //     console.log($(this)['0'].currentSrc)
+            //     console.log("break")
+            //     newGif = `<img class="gifVid" id=${gifIndex + 1} value="${gifs[gifIndex+1]} "src="${gifs[gifIndex]}">`;        
+            //     $("#" + [gifIndex + 1]).replaceWith(newGif)
+            // })
+
+            $("#submitBtn").on("click", function(){
+                newCar = $("#newCar").val();
+                topics.push(newCar);
+                loadBtns()
+            })
+
+            // $(".gifStill").on("click", function(){
+            //     gifIndex = pics.indexOf($(this).val())
+            //     console.log("True")
+            //     pics[gifIndex] = gifs[gifIndex]
+            // })
+        })    
+    </script>
+</body>
+</html>
+
+<!-- // for (a=0; a < gifs.length; a++){
+    //     var gifImg = `<img class="imgClass" src="${pics[a]}">`;
+    //     $("#gifImages").append(gifImg);
+    // }
+
+    // $(".imgClass").on("click", function(){
+    //     var gifImg = `<img class="imgClass" src="${pics[i]}">`;
+    // })
+    // for (i=0; i < gifs.length; i++){
+    //     var gifImg = `<img class="imgClass" src="${gifs[i]}">`;
+    //     $("#gifImages").append(gifImg);
+    // } -->
+
+
+<!-- // function pushGifs(response) {
+    //     for (i=0; i < 5; i++){
+    //     gifs.push(response.data[i].embed_url);
+    //     }
+    // }    -->
