@@ -1,26 +1,77 @@
-.col-12-md{
+
+body { 
+    background: url(https://bangshift.com/wp-content/uploads/2013/08/burnout1.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+/* .container { 
+    height: 600px;
+    background: url(https://bangshift.com/wp-content/uploads/2013/08/burnout1.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    border: 1px solid red;
+    margin: 1%;
+  } */
+
+/* .col-12-md{
     border: 1px solid blue;
     padding: 2%;
-}
+} */
 
 .btn{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     margin-left: 1%;
+    margin-bottom: 1%;
 }
 
+/* .row{
+    border: 1px solid purple;
+} */
+
 div[class*="col"]{
-    border: 1px solid green;
+    /* border: 1px solid green; */
     padding: 2%;
 }
 
-.col-4-md {
-    width: 600px;
+row{
+    /* border: 1px solid green; */
+    padding: 2%;
+}
+
+#gifImages {
+    color: white;
+    background-color: dimgray;
+    opacity: .8;
+    padding: 2%;
+}
+
+#searchDiv {
+    color: white;
+    background-color: dimgray;
+    opacity: .8;
 }
 .col-2-md {
-    width: 400px;
+    width: 200px;
+}
+
+.gifStill{
+    margin: 1%;
+}
+
+.gifVid{
+    margin: 1%;
 }
 
 img{
     width: 150px;
     height: 100px;
+}
+
+#submitBtn{
+    margin-top: 5%;
 }

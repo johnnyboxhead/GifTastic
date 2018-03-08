@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width==device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script   src="https://code.jquery.com/jquery-3.3.1.js"   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="   crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
     <title>Over the Hill Burnout</title>
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-12-md" id="buttonDiv" >
-                <!-- <button type="button" class="btn" id="testBtn" value="mustang">Test1</button> -->
-            </div>
+            <div class="col-md-12" id="buttonDiv"></div>
         </div>
         <div class="row">
-            <div class="col-4-md" id="gifImages">
-
+            <div class="col-md-8" id="gifImages">
+                <div class="row" id="gifRow">
+                </div>
             </div>
-            <div class="col-2-md" id="searchDiv">
-                    <p>Search for a new vehicle doing a burnout: </p>
-                    <input type="text" id="newCar"><br>
-                    <input type="submit" id="submitBtn">
-                </form>
+            <div class="col-md-4" id="searchDiv">
+                <p>Search for a new vehicle doing a burnout: </p>
+                <input type="text" id="newCar"><br>
+                <input type="submit" id="submitBtn">
             </div>
         </div>
     </div>       
@@ -38,6 +37,10 @@
         var carClick
         var gifs = []
         var pics = []
+        var ratings = []
+        var gifDiv
+        var gifImg
+        var ratingsText
         var gifIndex
         var newGif
 
@@ -62,9 +65,10 @@
                         url: gifURL,
                         method: "Get",
                     }).then(function(response){
-                        $("#gifImages").empty();
+                        $("#gifRow").empty(); //Check here
                         pics.length = 0;
                         gifs.length = 0;
+                        ratings.length = 0;
                         console.log(response);
                         postGifs(response)
                     })
@@ -76,9 +80,15 @@
                 for (i=0; i < 10; i++){
                     pics.push(response.data[i].images.fixed_height_small_still.url);
                     gifs.push(response.data[i].images.fixed_height_small.url);
-                    var gifImg = `<img class="gifStill" id=${i+1} value="${pics[i]} "src="${pics[i]}">`;
-                    console.log(pics[i]);
-                    $("#gifImages").append(gifImg);
+                    ratings.push(response.data[i].rating);
+                    gifDiv = `<div class="col-md-4 col-sm-4 col-lg-3" id="gifDiv${i+1}"></div>`
+                    gifImg = `<img class="gifStill" id=${i+1} value="${pics[i]} "src="${pics[i]}">`;
+                    ratingsText = `<span class="ratingsText" value="${ratings[i]}">Rating: ${ratings[i]}</span>`;
+                    // console.log(pics[i]);
+                    $("#gifRow").append(gifDiv)
+                    $("#gifDiv" + [i + 1]).append(gifImg);
+                    $("#gifDiv" + [i + 1]).append(ratingsText)
+
                 }
                 ClickStill()
             }        
@@ -91,15 +101,25 @@
                     console.log("break1")
                     newGif = `<img class="gifVid" id=${gifIndex + 1} value="${gifs[gifIndex]} "src="${gifs[gifIndex]}">`;        
                     $("#" + [gifIndex + 1]).replaceWith(newGif)
-
-                    $(".gifVid").on("click", function(){
-                        gifIndex = gifs.indexOf($(this)['0'].currentSrc)
-                        console.log($(this)['0'].currentSrc)
-                        console.log("break2")
-                        newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
-                        $("#" + [gifIndex + 1]).replaceWith(newGif)
-                        ClickStill()
-                    })
+                    ClickVid()
+                    // $(".gifVid").on("click", function(){
+                    //     gifIndex = gifs.indexOf($(this)['0'].currentSrc)
+                    //     console.log($(this)['0'].currentSrc)
+                    //     console.log("break2")
+                    //     newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
+                    //     $("#" + [gifIndex + 1]).replaceWith(newGif)
+                    //     ClickStill()
+                    // })
+                })
+            }    
+            function ClickVid(){
+                $(".gifVid").on("click", function(){
+                    gifIndex = gifs.indexOf($(this)['0'].currentSrc)
+                    console.log($(this)['0'].currentSrc)
+                    console.log("break2")
+                    newGif = `<img class="gifStill" id=${gifIndex + 1} value="${pics[gifIndex]} "src="${pics[gifIndex]}">`;        
+                    $("#" + [gifIndex + 1]).replaceWith(newGif)
+                    ClickStill()
                 })        
             }        
             
